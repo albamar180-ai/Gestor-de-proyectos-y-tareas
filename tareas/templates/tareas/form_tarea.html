@@ -1,0 +1,81 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Editar Tarea{% else %}Nueva Tarea{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 650px; margin: auto;">
+
+    <a href="{% url 'detalle_proyecto' proyecto.id %}"
+       style="
+           color: #d97706;
+           font-weight: bold;
+           text-decoration: none;
+       ">
+        ← Volver al proyecto
+    </a>
+
+    <div style="text-align: center; margin: 25px 0;">
+
+        <div style="font-size: 50px;">
+            {% if form.instance.pk %}✏️{% else %}📝{% endif %}
+        </div>
+
+        <h2 style="margin-bottom: 5px;">
+            {% if form.instance.pk %}
+                Editar tarea
+            {% else %}
+                Crear nueva tarea
+            {% endif %}
+        </h2>
+
+        <p style="color: #7c5a35;">
+            Proyecto: <strong>{{ proyecto.nombre }}</strong>
+        </p>
+
+    </div>
+
+    <div style="
+        background-color: #fff8ed;
+        padding: 30px;
+        border-radius: 15px;
+        border: 2px solid #fcd38d;
+    ">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div style="margin-top: 25px;">
+
+                <button type="submit" class="boton">
+                    {% if form.instance.pk %}
+                        💾 Guardar cambios
+                    {% else %}
+                        💾 Guardar tarea
+                    {% endif %}
+                </button>
+
+                <a href="{% url 'detalle_proyecto' proyecto.id %}"
+                   style="
+                       margin-left: 10px;
+                       color: #d97706;
+                       font-weight: bold;
+                       text-decoration: none;
+                   ">
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

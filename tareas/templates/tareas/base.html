@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Gestor de Tareas{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #fff8ed;
+            color: #4a3520;
+        }
+
+        header {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+            color: white;
+            padding: 22px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            margin: 0 0 15px 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #fff3c4;
+        }
+
+        main {
+            width: 80%;
+            max-width: 1000px;
+            margin: 35px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+            border-top: 5px solid #f59e0b;
+        }
+
+        h2 {
+            color: #d97706;
+        }
+
+        .boton {
+            display: inline-block;
+            background-color: #f97316;
+            color: white;
+            padding: 11px 18px;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .boton:hover {
+            background-color: #ea580c;
+        }
+
+        .usuario {
+            margin-left: auto;
+            background-color: rgba(255, 255, 255, 0.20);
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>✨ Gestor de Proyectos y Tareas</h1>
+
+    <nav>
+        <a href="{% url 'lista_proyectos' %}">
+            📁 Mis proyectos
+        </a>
+
+  {% if user.is_authenticated %}
+
+    <span class="usuario">
+        👋 Hola, {{ user.username }}
+    </span>
+
+    <form method="POST"
+          action="{% url 'logout' %}"
+          style="margin: 0;">
+
+        {% csrf_token %}
+
+        <button type="submit"
+                style="
+                    background-color: #fff3c4;
+                    color: #d97706;
+                    border: none;
+                    padding: 9px 15px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">
+            🚪 Cerrar sesión
+        </button>
+
+    </form>
+
+{% endif %}
+    </nav>
+</header>
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+</body>
+</html>

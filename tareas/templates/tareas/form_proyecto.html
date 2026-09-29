@@ -1,0 +1,53 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}Nuevo Proyecto{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 650px; margin: auto;">
+
+    <h2>✨ Crear nuevo proyecto</h2>
+
+    <p style="color: #7c5a35;">
+        Agrega un proyecto y luego podrás organizar tus tareas dentro de él.
+    </p>
+
+    <div style="
+        background-color: #fff8ed;
+        padding: 25px;
+        border-radius: 15px;
+        border: 2px solid #fcd38d;
+        margin-top: 20px;
+    ">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div style="margin-top: 25px;">
+
+                <button type="submit" class="boton">
+                    💾 Guardar proyecto
+                </button>
+
+                <a href="{% url 'lista_proyectos' %}"
+                   style="
+                       margin-left: 10px;
+                       color: #d97706;
+                       font-weight: bold;
+                       text-decoration: none;
+                   ">
+                    ← Volver
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

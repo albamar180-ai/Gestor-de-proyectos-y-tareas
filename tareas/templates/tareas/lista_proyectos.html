@@ -1,0 +1,116 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}Mis Proyectos{% endblock %}
+
+{% block content %}
+
+<h2>📁 Mis Proyectos</h2>
+
+<p>
+    Aquí puedes organizar tus proyectos y las tareas asociadas a cada uno.
+</p>
+
+<a href="{% url 'crear_proyecto' %}" class="boton">
+    ➕ Crear nuevo proyecto
+</a>
+
+<hr style="margin: 25px 0; border: 1px solid #fde7c3;">
+
+{% if proyectos %}
+
+    {% for proyecto in proyectos %}
+
+        <div style="
+            background-color: #fff8ed;
+            border-left: 5px solid #f59e0b;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        ">
+
+            <h3 style="color: #d97706; margin-top: 0;">
+                📌 {{ proyecto.nombre }}
+            </h3>
+
+            {% if proyecto.descripcion %}
+                <p>{{ proyecto.descripcion }}</p>
+            {% else %}
+                <p>Sin descripción.</p>
+            {% endif %}
+
+            <small>
+                Creado: {{ proyecto.fecha_creacion|date:"d/m/Y" }}
+            </small>
+
+            <div style="margin-top: 15px;">
+
+    <a href="{% url 'detalle_proyecto' proyecto.id %}"
+   style="
+       display: inline-block;
+       background-color: #f97316;
+       color: white;
+       padding: 8px 14px;
+       border-radius: 7px;
+       text-decoration: none;
+       font-weight: bold;
+   ">
+    📋 Ver tareas
+    </a>
+
+    <a href="{% url 'editar_proyecto' proyecto.id %}"
+       style="
+           display: inline-block;
+           background-color: #f59e0b;
+           color: white;
+           padding: 8px 14px;
+           border-radius: 7px;
+           text-decoration: none;
+           font-weight: bold;
+       ">
+        ✏️ Editar
+    </a>
+
+    <a href="{% url 'eliminar_proyecto' proyecto.id %}"
+       style="
+           display: inline-block;
+           background-color: #dc2626;
+           color: white;
+           padding: 8px 14px;
+           margin-left: 8px;
+           border-radius: 7px;
+           text-decoration: none;
+           font-weight: bold;
+       ">
+        🗑️ Eliminar
+    </a>
+
+</div>
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div style="
+        text-align: center;
+        padding: 35px;
+        background-color: #fff8ed;
+        border-radius: 12px;
+        margin-top: 20px;
+    ">
+
+        <h3>🌟 ¡Comencemos!</h3>
+
+        <p>
+            Todavía no tienes proyectos creados.
+        </p>
+
+        <p>
+            Crea tu primer proyecto para comenzar a organizar tus tareas.
+        </p>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

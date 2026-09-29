@@ -1,0 +1,88 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}Eliminar Tarea{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 600px; margin: 30px auto;">
+
+    <div style="text-align: center; margin-bottom: 25px;">
+
+        <div style="font-size: 60px;">
+            🗑️
+        </div>
+
+        <h2 style="color: #d97706;">
+            Eliminar tarea
+        </h2>
+
+        <p style="color: #7c5a35;">
+            Estás a punto de eliminar la tarea:
+        </p>
+
+        <h3 style="color: #f97316;">
+            "{{ tarea.titulo }}"
+        </h3>
+
+        <p>
+            Proyecto: <strong>{{ proyecto.nombre }}</strong>
+        </p>
+
+    </div>
+
+    <div style="
+        background-color: #fff8ed;
+        padding: 25px;
+        border-radius: 15px;
+        border: 2px solid #fcd38d;
+        text-align: center;
+    ">
+
+        <p style="font-weight: bold;">
+            ⚠️ ¿Estás seguro de que deseas eliminar esta tarea?
+        </p>
+
+        <p style="color: #7c5a35;">
+            Esta acción no se puede deshacer.
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                style="
+                    background-color: #dc2626;
+                    color: white;
+                    border: none;
+                    padding: 11px 18px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: bold;
+                "
+            >
+                🗑️ Sí, eliminar
+            </button>
+
+            <a href="{% url 'detalle_proyecto' proyecto.id %}"
+               style="
+                   display: inline-block;
+                   margin-left: 10px;
+                   background-color: #f59e0b;
+                   color: white;
+                   padding: 11px 18px;
+                   border-radius: 8px;
+                   text-decoration: none;
+                   font-weight: bold;
+               ">
+                ← Cancelar
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

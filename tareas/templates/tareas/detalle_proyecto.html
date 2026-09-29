@@ -1,0 +1,134 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}{{ proyecto.nombre }}{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 800px; margin: auto;">
+
+    <a href="{% url 'lista_proyectos' %}"
+       style="
+           color: #d97706;
+           font-weight: bold;
+           text-decoration: none;
+       ">
+        ← Volver a mis proyectos
+    </a>
+
+    <div style="
+        background-color: #fff8ed;
+        padding: 25px;
+        border-radius: 15px;
+        border-left: 5px solid #f59e0b;
+        margin-top: 20px;
+    ">
+
+        <h2 style="margin-top: 0;">
+            📁 {{ proyecto.nombre }}
+        </h2>
+
+        {% if proyecto.descripcion %}
+            <p>{{ proyecto.descripcion }}</p>
+        {% else %}
+            <p>Este proyecto no tiene descripción.</p>
+        {% endif %}
+
+    </div>
+
+    <div style="margin-top: 30px;">
+
+        <h2>✅ Tareas del proyecto</h2>
+        <a href="{% url 'crear_tarea' proyecto.id %}"
+   class="boton"
+   style="margin-bottom: 20px;">
+    ➕ Nueva tarea
+</a>
+
+        {% if tareas %}
+
+            {% for tarea in tareas %}
+
+                <div style="
+                    background-color: #fff8ed;
+                    border: 2px solid #fcd38d;
+                    padding: 18px;
+                    margin-bottom: 12px;
+                    border-radius: 10px;
+                ">
+
+                    <h3 style="margin-top: 0; color: #d97706;">
+                        {{ tarea.titulo }}
+                    </h3>
+
+                    {% if tarea.descripcion %}
+                        <p>{{ tarea.descripcion }}</p>
+                    {% endif %}
+
+                    {% if tarea.completada %}
+                        <strong>✅ Completada</strong>
+                    {% else %}
+                        <strong>⏳ Pendiente</strong>
+                    {% endif %}
+    <div style="margin-top: 15px;">
+
+    <a href="{% url 'editar_tarea' tarea.id %}"
+       style="
+           display: inline-block;
+           background-color: #f59e0b;
+           color: white;
+           padding: 8px 14px;
+           border-radius: 7px;
+           text-decoration: none;
+           font-weight: bold;
+       ">
+        ✏️ Editar
+    </a>
+
+    <a href="{% url 'eliminar_tarea' tarea.id %}"
+       style="
+           display: inline-block;
+           background-color: #dc2626;
+           color: white;
+           padding: 8px 14px;
+           margin-left: 8px;
+           border-radius: 7px;
+           text-decoration: none;
+           font-weight: bold;
+       ">
+        🗑️ Eliminar
+    </a>
+
+</div>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div style="
+                text-align: center;
+                background-color: #fff8ed;
+                padding: 30px;
+                border-radius: 12px;
+                border: 2px dashed #fcd38d;
+            ">
+
+                <div style="font-size: 40px;">📝</div>
+
+                <h3 style="color: #d97706;">
+                    Aún no hay tareas
+                </h3>
+
+                <p>
+                    Este proyecto todavía no tiene tareas creadas.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
